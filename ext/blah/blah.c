@@ -28,10 +28,6 @@ int regex_match_base(regex_fn_s in);
   end of header
 */
 
-
-/*
-  regex
-*/
 static int count_parens(const char *string){
     int out = 0;
     int last_was_backslash = 0;
@@ -77,11 +73,6 @@ int regex_match_base(regex_fn_s in){
     regfree(&re);
     return matchcount;
 }
-
-/*
-  ration
-*/
-
 
 ratio_s new_ratio(int num, int den){
     return (ratio_s){.numerator=num, .denominator=den, .value=num/(double)den};
@@ -130,30 +121,13 @@ static VALUE hello_world(VALUE mod)
   return rb_str_new2("hello world");
 }
 
-
-static VALUE hello(VALUE self, VALUE arg) {
-  char* name = RSTRING_PTR(arg);
-  printf("Hello %s!\n", name);
-  return Qnil;
-}
-
-static VALUE goodbye(VALUE class) {
-  printf("Later dude!\n");
-  return Qnil;
-}
-
 void Init_blah()
 {
   VALUE mBlah = rb_define_module("Blah");
   c_match = rb_define_class_under(mBlah, "Match", rb_cObject);
-  //rb_define_method(c_match, "string", match_string, 0);
-
   rb_define_singleton_method(mBlah, "hello_world", hello_world, 0);
   rb_define_singleton_method(mBlah, "print_ratio", print_ratio, 2);
   rb_define_singleton_method(mBlah, "match", match, 2);
-  rb_define_method(mBlah, "hello_world", hello_world, 0);
-  rb_define_method(mBlah, "hello", hello, 1);
-  rb_define_method(mBlah, "goodbye", goodbye, 0);
 
 }
 
