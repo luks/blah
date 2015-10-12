@@ -94,16 +94,17 @@ static VALUE match(VALUE self, VALUE string, VALUE regex)
 
   char **substrings;
   int match_ct =  regex_match(RSTRING_PTR(string), RSTRING_PTR(regex), &substrings);
+  VALUE result = rb_ary_new();
+
   if(match_ct != 0) {
-    printf("%i matches:\n", match_ct);
     for (int i=0; i< match_ct; i++){
-        printf("[%s] ", substrings[i]);
+        rb_ary_push(result, rb_str_new2(substrings[i]));
         free(substrings[i]);
     }
     free(substrings);
     printf("\n\n");
   }
-  return Qnil;
+  return result;
 }
 
 static VALUE print_ratio(VALUE self, VALUE num, VALUE den)
