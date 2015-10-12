@@ -3,7 +3,7 @@ $:.unshift(lib) unless $:.include?(lib)
 
 Gem::Specification.new do |s|
   s.name        = 'blah'
-  s.version     = '1.0.8'
+  s.version     = '1.0.9'
   s.date        = '2015-10-04'
   s.summary     = "Blah!"
   s.description = "Unusefull ruby gem with c extension"
