@@ -20,8 +20,16 @@ typedef struct {
     _Bool use_case;
 } regex_fn_s;
 
+
 #define regex_match(...) regex_match_base((regex_fn_s){__VA_ARGS__})
 int regex_match_base(regex_fn_s in);
+
+
+enum {
+  ERROR_REGEX_NOT_COMPILED = -1,
+  ERROR_NOT_INPUT_STRING = -2,
+  ERROR_NOT_INPUT_REGEX = -3,
+};
 
 /*
   end of header
@@ -47,14 +55,14 @@ int regex_match_base(regex_fn_s in)
 {
     regex_t re;
     int matchcount = 0;
-    if (!in.string) return -1;
-    if (!in.regex)  return -2;
+    if (!in.string) return ERROR_NOT_INPUT_STRING;
+    if (!in.regex)  return ERROR_NOT_INPUT_REGEX;
     if (in.substrings) matchcount = count_parens(in.regex);
     regmatch_t result[matchcount+1];
     int compiled_ok = !regcomp(&re, in.regex, REG_EXTENDED
                                             + (in.use_case ? 0 : REG_ICASE)
                                             + (in.substrings ? 0 : REG_NOSUB) );
-    if (!compiled_ok) return -3;
+    if (!compiled_ok) return ERROR_REGEX_NOT_COMPILED;
 
     int found = !regexec(&re, in.string, matchcount+1, result, 0);
     if (!found) return 0;
