@@ -24,17 +24,19 @@ typedef struct {
 #define regex_match(...) regex_match_base((regex_fn_s){__VA_ARGS__})
 int regex_match_base(regex_fn_s in);
 
-
 enum {
-  ERROR_REGEX_NOT_COMPILED = -1,
-  ERROR_NOT_INPUT_STRING = -2,
-  ERROR_NOT_INPUT_REGEX = -3,
+    ERROR_REGEX_NOT_COMPILED = -1,
+    ERROR_NOT_INPUT_STRING = -2,
+    ERROR_NOT_INPUT_REGEX = -3,
 };
 
 /*
   end of header
 */
 
+/*
+  counts open-parens that aren’t escaped by a back‐slash
+*/
 static int count_parens(const char *string)
 {
     int out = 0;
