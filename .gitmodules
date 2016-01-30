@@ -1,0 +1,3 @@
+[submodule "lib/gem_builder"]
+	path = lib/gem_builder
+	url = https://github.com/luks/gem_builder
